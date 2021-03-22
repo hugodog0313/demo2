@@ -1,0 +1,52 @@
+# spring
+spring:
+
+
+  # Be sure to also change "mybatis.mapper-locations" when switching between Oracle and Postgresql datasources
+
+  # MQ
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: root
+    password: admin1234
+    virtusal-host: /
+    listener:
+      simple:
+        acknowledge-mode: manual
+        concurrency: 5
+        max-concurrency: 10
+        prefetch: 5
+    cache:
+      channel:
+        size: 50
+    publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: group_id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    tpd:
+      topic-name: advice-topic
+      message-per-request: 10
+mq:
+  defaultExchange: amqpExchange
+  queue: queue
+  routeKey: queue_key
+# server
+server:
+  port: ${SPRING_SERVER_PORT:10002}
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,application/xml
+    min-response-size: 2048
+
+
+
+
